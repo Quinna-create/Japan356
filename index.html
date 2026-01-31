@@ -18,7 +18,7 @@
     .schedule-body{background:white;border-radius:0 0 20px 20px;padding:30px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}
     .legend{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:30px;padding:15px;background:#f8f9fa;border-radius:10px}
     .legend-item{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:#555}
-    .legend-dot{width:12px;height:12px;border-radius:50%}
+    .legend-icon{font-size:1.2rem;width:30px;text-align:center}
     .week-card{background:#fff;border:1px solid #e9ecef;border-radius:12px;margin-bottom:15px;overflow:hidden;transition:all 0.3s ease;opacity:0;transform:translateY(20px)}
     .week-card.visible{opacity:1;transform:translateY(0)}
     .week-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.12);border-color:#c41e3a}
@@ -34,8 +34,8 @@
     .activity-text{flex:1}
     .activity-text.break-text{color:#c62828;font-weight:600}
     .student-name{font-weight:600;color:#1565c0;background:#e3f2fd;padding:2px 8px;border-radius:4px}
-    @media(max-width:600px){.schedule-header h1{font-size:1.6rem}.schedule-header .japanese-title{font-size:1.1rem}.week-header{flex-direction:column;align-items:flex-start;gap:5px}.week-content{padding:15px 20px 15px 25px}.legend{flex-direction:column;gap:10px}}
-    .week-card:nth-child(1){transition-delay:0.05s}.week-card:nth-child(2){transition-delay:0.1s}.week-card:nth-child(3){transition-delay:0.15s}.week-card:nth-child(4){transition-delay:0.2s}.week-card:nth-child(5){transition-delay:0.25s}.week-card:nth-child(6){transition-delay:0.3s}.week-card:nth-child(7){transition-delay:0.35s}.week-card:nth-child(8){transition-delay:0.4s}.week-card:nth-child(9){transition-delay:0.45s}.week-card:nth-child(10){transition-delay:0.5s}.week-card:nth-child(11){transition-delay:0.55s}.week-card:nth-child(12){transition-delay:0.6s}.week-card:nth-child(13){transition-delay:0.65s}.week-card:nth-child(14){transition-delay:0.7s}.week-card:nth-child(15){transition-delay:0.75s}
+    @media(max-width:600px){.schedule-header h1{font-size:1.6rem}.schedule-header .japanese-title{font-size:1.1rem}.week-header{flex-direction:column;align-items:flex-start;gap:5px}.week-content{padding:15px 20px 15px 20px}.legend{gap:10px}}
+    .week-card:nth-child(1){transition-delay:0.05s}.week-card:nth-child(2){transition-delay:0.1s}.week-card:nth-child(3){transition-delay:0.15s}.week-card:nth-child(4){transition-delay:0.2s}.week-card:nth-child(5){transition-delay:0.25s}.week-card:nth-child(6){transition-delay:0.3s}.week-card:nth-child(7){transition-delay:0.35s}.week-card:nth-child(8){transition-delay:0.4s}.week-card:nth-child(9){transition-delay:0.45s}.week-card:nth-child(10){transition-delay:0.5s}.week-card:nth-child(11){transition-delay:0.55s}.week-card:nth-child(12){transition-delay:0.6s}.week-card:nth-child(13){transition-delay:0.65s}.week-card:nth-child(14){transition-delay:0.7s}
   </style>
 </head>
 <body>
@@ -48,20 +48,21 @@
   </header>
   <div class="schedule-body">
     <div class="legend">
-      <div class="legend-item"><span class="legend-dot" style="background:#4caf50;"></span><span>Group Reading</span></div>
-      <div class="legend-item"><span class="legend-dot" style="background:#c2185b;"></span><span>Assigned Pages</span></div>
-      <div class="legend-item"><span class="legend-dot" style="background:#ffc107;"></span><span>Vocabulary Quiz</span></div>
-      <div class="legend-item"><span class="legend-dot" style="background:#17a2b8;"></span><span>Discussion Leader</span></div>
-      <div class="legend-item"><span class="legend-dot" style="background:#dc3545;"></span><span>No Class</span></div>
+      <div class="legend-item"><span class="legend-icon">👋</span><span>Course Introduction</span></div>
+      <div class="legend-item"><span class="legend-icon">📖</span><span>Group Reading</span></div>
+      <div class="legend-item"><span class="legend-icon">📄</span><span>Assigned Pages</span></div>
+      <div class="legend-item"><span class="legend-icon">📝</span><span>Vocabulary Quiz</span></div>
+      <div class="legend-item"><span class="legend-icon">👥</span><span>Discussion Leader</span></div>
+      <div class="legend-item"><span class="legend-icon">🌸</span><span>No Class</span></div>
     </div>
     <div id="schedule-weeks"></div>
   </div>
 </div>
 <script>
 var defined_leaders={4:"Oliver",5:"Tara",6:"Joshua",7:"Wesley",8:"Zach",10:"STUDENT_NAME_6",11:"STUDENT_NAME_7",12:"STUDENT_NAME_8",13:"STUDENT_NAME_9"};
-var defined_pages={2:"33–35 (first line)",3:"35–37 (third line)",4:"37–39 (line 19)",5:"39–40 (four lines from end)",6:"41–42 (11 lines from end)",7:"42–44 (seventh line)",8:"44–47 (end of page)",10:"48–51 (three lines from end)",11:"51–54 (end of page)",12:"55–58 (six lines from end)",13:"59–61 (line 15)",14:"61–65 (line 5)",15:"65–68"};
-var defined_schedule=[{week:1,date:"2026-01-30",activities:["intro","reading"]},{week:2,date:"2026-02-06",activities:["reading","pages"]},{week:3,date:"2026-02-13",activities:["reading","pages","quiz"]},{week:4,date:"2026-02-20",activities:["reading","pages","quiz","leader"]},{week:5,date:"2026-02-27",activities:["reading","pages","quiz","leader"]},{week:6,date:"2026-03-06",activities:["reading","pages","quiz","leader"]},{week:7,date:"2026-03-13",activities:["reading","pages","quiz","leader"]},{week:8,date:"2026-03-20",activities:["reading","pages","quiz","leader"]},{week:9,date:"2026-03-27",activities:["break"],isBreak:true},{week:10,date:"2026-04-03",activities:["reading","pages","quiz","leader"]},{week:11,date:"2026-04-10",activities:["reading","pages","quiz","leader"]},{week:12,date:"2026-04-17",activities:["reading","pages","quiz","leader"]},{week:13,date:"2026-04-24",activities:["reading","pages","quiz","leader"]},{week:14,date:"2026-05-01",activities:["reading","pages","quiz"]},{week:15,date:"2026-05-08",activities:["reading","pages","quiz"]}];
-var defined_info={intro:{label:"Course Introduction",icon:"👋"},reading:{label:"Group Reading: 時の顔",icon:"📖"},pages:{label:"Pages",icon:"📄"},quiz:{label:"Vocabulary Quiz",icon:"📝"},leader:{label:"Discussion Leader",icon:"🎤"},break:{label:"Spring Break — No Class",icon:"🌸"}};
+var defined_pages={2:"33–35 (first line)",3:"35–37 (third line)",4:"37–39 (line 19)",5:"39–40 (four lines from end)",6:"41–42 (11 lines from end)",7:"42–44 (seventh line)",8:"44–47 (end of page)",10:"48–50 (line 9)",11:"50–52 (line 14)",12:"52–56 (line 8)",13:"56–59 (end of section)"};
+var defined_schedule=[{week:1,date:"2026-01-30",activities:["intro","reading"]},{week:2,date:"2026-02-06",activities:["reading","pages"]},{week:3,date:"2026-02-13",activities:["reading","pages","quiz"]},{week:4,date:"2026-02-20",activities:["reading","pages","quiz","leader"]},{week:5,date:"2026-02-27",activities:["reading","pages","quiz","leader"]},{week:6,date:"2026-03-06",activities:["reading","pages","quiz","leader"]},{week:7,date:"2026-03-13",activities:["reading","pages","quiz","leader"]},{week:8,date:"2026-03-20",activities:["reading","pages","quiz","leader"]},{week:9,date:"2026-03-27",activities:["break"],isBreak:true},{week:10,date:"2026-04-03",activities:["reading","pages","quiz","leader"]},{week:11,date:"2026-04-10",activities:["reading","pages","quiz","leader"]},{week:12,date:"2026-04-17",activities:["reading","pages","quiz","leader"]},{week:13,date:"2026-04-24",activities:["reading","pages","quiz","leader"]},{week:14,date:"2026-05-01",activities:["reading"]}];
+var defined_info={intro:{label:"Course Introduction",icon:"👋"},reading:{label:"Group Reading: 時の顔",icon:"📖"},pages:{label:"Pages",icon:"📄"},quiz:{label:"Vocabulary Quiz",icon:"📝"},leader:{label:"Discussion Leader",icon:"👥"},break:{label:"Spring Break — No Class",icon:"🌸"}};
 function formatDate(d){var dt=new Date(d+"T12:00:00");return dt.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});}
 function createCard(w){var bc=w.isBreak?" spring-break":"";var acts="";for(var i=0;i<w.activities.length;i++){var a=w.activities[i];var info=defined_info[a];var lbl=info.label;var tc="activity-text";if(a==="leader"&&defined_leaders[w.week]){lbl="Discussion Leader: <span class='student-name'>"+defined_leaders[w.week]+"</span>";}
 if(a==="pages"&&defined_pages[w.week]){lbl="Assigned Reading: Pages "+defined_pages[w.week];}
